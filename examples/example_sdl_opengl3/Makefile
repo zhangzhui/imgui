@@ -47,7 +47,7 @@ ifeq ($(UNAME_S), Linux) #LINUX
 	LIBS = -lGL -ldl `sdl2-config --libs`
 
 	CXXFLAGS = -I../ -I../../ -I../libs/gl3w `sdl2-config --cflags`
-	CXXFLAGS += -Wall -Wformat
+	CXXFLAGS += -Wall -Wformat -g -std=c++03
 	CFLAGS = $(CXXFLAGS)
 endif
 

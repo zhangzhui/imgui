@@ -691,15 +691,16 @@ struct ImGuiColumnsSet
 // Data shared between all ImDrawList instances
 struct IMGUI_API ImDrawListSharedData
 {
-    ImVec2          TexUvWhitePixel;            // UV of white pixel in the atlas
-    ImFont*         Font;                       // Current/default font (optional, for simplified AddText overload)
-    float           FontSize;                   // Current/default font size (optional, for simplified AddText overload)
+    ImVec2          TexUvWhitePixel;          // UV of white pixel in the atlas
+    ImFont*         Font;                     // Current/default font (optional, for simplified AddText overload)
+    float           FontSize;                 // Current/default font size (optional, for simplified AddText overload)
     float           CurveTessellationTol;
-    ImVec4          ClipRectFullscreen;         // Value for PushClipRectFullscreen()
-
-    // Const data
-    // FIXME: Bake rounded corners fill/borders in atlas
+    ImVec4          ClipRectFullscreen;       // Value for PushClipRectFullscreen()
     ImVec2          CircleVtx12[12];
+
+    // FIXME-ROUNDSHAPES: WIP + need to remove CircleVtx12 before PR
+    ImVector<ImVec4>* TexUvRoundCornerFilled;   // UV of filled round corner quad in the atlas
+    ImVector<ImVec4>* TexUvRoundCornerStroked;  // UV of stroked round corner quad in the atlas
 
     ImDrawListSharedData();
 };
@@ -1566,6 +1567,7 @@ namespace ImGui
 // ImFontAtlas internals
 IMGUI_API bool              ImFontAtlasBuildWithStbTruetype(ImFontAtlas* atlas);
 IMGUI_API void              ImFontAtlasBuildRegisterDefaultCustomRects(ImFontAtlas* atlas);
+IMGUI_API void              ImFontAtlasBuildRegisterRoundCornersCustomRects(ImFontAtlas* atlas);
 IMGUI_API void              ImFontAtlasBuildSetupFont(ImFontAtlas* atlas, ImFont* font, ImFontConfig* font_config, float ascent, float descent);
 IMGUI_API void              ImFontAtlasBuildPackCustomRects(ImFontAtlas* atlas, void* stbrp_context_opaque);
 IMGUI_API void              ImFontAtlasBuildFinish(ImFontAtlas* atlas);
