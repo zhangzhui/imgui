@@ -307,11 +307,6 @@ static void RebuildSwapChain(int width, int height)
 	g_PendingSwapchainRebuild = false;
 }
 
-static void RebuildSwapChain()
-{
-	RebuildSwapChain(g_WindowData.Width, g_WindowData.Height);
-}
-
 int main(int, char**)
 {
     // Setup SDL
@@ -443,7 +438,7 @@ int main(int, char**)
         }
 
 		if (g_PendingSwapchainRebuild)
-			RebuildSwapChain();
+			RebuildSwapChain(g_WindowData.Width, g_WindowData.Height);
 
         // Start the Dear ImGui frame
         ImGui_ImplVulkan_NewFrame();
